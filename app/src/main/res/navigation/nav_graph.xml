@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.jeepchief.devoca.view.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_vocaFragment"
+            app:destination="@id/vocaFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_settingFragment2"
+            app:destination="@id/settingFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/vocaFragment"
+        android:name="com.jeepchief.devoca.view.VocaFragment"
+        android:label="VocaFragment" />
+    <fragment
+        android:id="@+id/settingFragment2"
+        android:name="com.jeepchief.devoca.view.SettingFragment"
+        android:label="SettingFragment" />
+</navigation>

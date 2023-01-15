@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    xmlns:tools="http://schemas.android.com/tools">-->
+<!--    -->
+<!--</androidx.core.widget.NestedScrollView>-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+    <EditText
+        android:id="@+id/edt_voca_name"
+        style="@style/BasicTextViewStyle"
+        android:hint="@string/edittext_voca_name" />
+    <EditText
+        android:id="@+id/edt_voca_desc"
+        style="@style/BasicTextViewStyle"
+        android:hint="@string/edittext_voca_desc"
+        android:layout_centerInParent="true"/>
+    <EditText
+        android:id="@+id/edt_voca_from"
+        style="@style/BasicTextViewStyle"
+        android:hint="@string/edittext_voca_from"
+        android:layout_above="@id/btn_input_voca_complete" />
+
+    <Button
+        style="@style/MainActivityButtonStyle"
+        android:id="@+id/btn_input_voca_complete"
+        android:text="@string/button_name_close"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>
