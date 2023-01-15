@@ -9,16 +9,20 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.jeepchief.devoca.R
 import com.jeepchief.devoca.databinding.FragmentMainBinding
 import com.jeepchief.devoca.databinding.LayoutDialogVocaInputBinding
+import com.jeepchief.devoca.model.database.VocaEntity
+import com.jeepchief.devoca.viewmodel.MainViewModel
 
 class MainFragment : BaseFragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private lateinit var navController: NavController
+    private val viewModel by viewModels<MainViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,15 +59,13 @@ class MainFragment : BaseFragment() {
                                 dlg.dismiss()
                             }
                             getString(R.string.button_name_input_finish) -> {
-//                                if(edtVocaName.text.toString().isEmpty() || edtVocaDesc.text.toString().isEmpty()) {
-//                                    Toast.makeText(mContext, getString(R.string.msg_check_empty), Toast.LENGTH_SHORT).show()
-//                                }
-//                                else {
-//                                    // Database code..
-//                                    dlg.dismiss()
-//                                }
-
                                 // Will writing database code..
+                                val vocaEntity = VocaEntity(
+                                    vocaName = edtVocaName.text.toString(),
+                                    vocaDesc = edtVocaDesc.text.toString(),
+                                    vocaFrom = edtVocaFrom.text.toString()
+                                )
+                                viewModel.saveVoca(mContext, vocaEntity)
                                 dlg.dismiss()
                             }
                         }
@@ -72,19 +74,17 @@ class MainFragment : BaseFragment() {
                     edtVocaName.addTextChangedListener { changeButtonName(it, this) }
                     edtVocaDesc.addTextChangedListener { changeButtonName(it, this) }
                 }
+                dlg.show()
             }
         }
     }
 
     private fun changeButtonName(it: Editable?, binding: LayoutDialogVocaInputBinding) {
         binding.apply {
-            it?.toString()?.let { str ->
-                if(str.isNotEmpty()) btnInputVocaComplete.text = getString(R.string.button_name_input_finish)
-                else {
-                    if(edtVocaName.text.isEmpty() && edtVocaDesc.text.isEmpty())
-                        btnInputVocaComplete.text = getString(R.string.button_name_close)
-                }
-            }
+            if(edtVocaName.text.isNotEmpty() && edtVocaDesc.text.isNotEmpty())
+                btnInputVocaComplete.text = getString(R.string.button_name_input_finish)
+            else
+                btnInputVocaComplete.text = getString(R.string.button_name_close)
         }
     }
 
