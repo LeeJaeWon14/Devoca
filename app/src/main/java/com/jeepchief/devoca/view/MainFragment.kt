@@ -59,7 +59,6 @@ class MainFragment : BaseFragment() {
                                 dlg.dismiss()
                             }
                             getString(R.string.button_name_input_finish) -> {
-                                // Will writing database code..
                                 val vocaEntity = VocaEntity(
                                     vocaName = edtVocaName.text.toString(),
                                     vocaDesc = edtVocaDesc.text.toString(),

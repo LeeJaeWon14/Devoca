@@ -11,7 +11,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:id="@+id/rl_voca_layout">
     <TextView
         android:id="@+id/tv_voca_name"
         style="@style/BasicTextViewStyle"
