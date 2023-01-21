@@ -38,17 +38,4 @@ class MainViewModel : ViewModel() {
     fun saveVoca() { // Save on Server
 
     }
-
-    private val _voca: MutableLiveData<VocaEntity> by lazy { MutableLiveData<VocaEntity>() }
-    val voca: LiveData<VocaEntity> get() = _voca
-    fun getVoca(context: Context, vid: Int) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                _voca.postValue(
-                    DevocaDatabase.getInstance(context).getVocaDAO()
-                        .selectVoca(vid)
-                )
-            }
-        }
-    }
 }

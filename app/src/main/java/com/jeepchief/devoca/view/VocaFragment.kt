@@ -6,18 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.viewModels
 import com.jeepchief.devoca.R
 import com.jeepchief.devoca.databinding.FragmentVocaBinding
+import com.jeepchief.devoca.model.database.DevocaDatabase
 import com.jeepchief.devoca.util.Log
-import com.jeepchief.devoca.viewmodel.MainViewModel
+import com.jeepchief.devoca.viewmodel.VocaViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 class VocaFragment : BaseFragment() {
     private var _binding: FragmentVocaBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by activityViewModels<MainViewModel>()
+    private val viewModel by viewModels<VocaViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,7 +39,7 @@ class VocaFragment : BaseFragment() {
         // init UI
         binding.apply {
             rlVocaLayout.setOnClickListener {
-                viewModel.getVoca(mContext, makeRandomVid())
+                viewModel.getVoca(mContext, makeRandomVid(5))
             }
             rlVocaLayout.performClick()
         }
@@ -45,23 +48,16 @@ class VocaFragment : BaseFragment() {
     private fun observeViewModel() {
         viewModel.run {
             voca.observe(mActivity) { entity ->
-                entity?.let {
-                    try {
-                        binding.apply {
-                            tvVocaName.text = entity.vocaName
-                            tvVocaDesc.text = entity.vocaDesc
-                            entity.vocaFrom?.let { tvVocaFrom.text = it } ?: run { tvVocaFrom.isVisible = false }
-                        }
-                    } catch (e: Exception) {
-                        Log.e(e.message!!)
+                Log.e("entity is $entity")
+                try {
+                    binding.apply {
+                        tvVocaName.text = entity.vocaName
+                        tvVocaDesc.text = entity.vocaDesc
+                        entity.vocaFrom?.let { tvVocaFrom.text = it } ?: run { tvVocaFrom.isVisible = false }
                     }
-                } ?: run {
-                    try {
-                        Toast.makeText(mContext, getString(R.string.msg_empty_voca_list), Toast.LENGTH_SHORT).show()
-                    } catch (e: IllegalStateException) {
-                        Log.e("Entity is null! \r\n${e.message}")
-                        mActivity.onBackPressed()
-                    }
+                } catch(e: NullPointerException) {
+                    Toast.makeText(mContext, getString(R.string.msg_empty_voca_list), Toast.LENGTH_SHORT).show()
+                    mActivity.onBackPressed()
                 }
             }
         }
@@ -71,7 +67,7 @@ class VocaFragment : BaseFragment() {
      * Make randon vid for test.
      * @return vid: Int
      */
-    private fun makeRandomVid() : Int = Random(5).nextInt()
+    private fun makeRandomVid(count: Int) : Int = Random.nextInt(count).also { Log.e("Set vid count is $count") }
 
     override fun onDestroy() {
         super.onDestroy()
