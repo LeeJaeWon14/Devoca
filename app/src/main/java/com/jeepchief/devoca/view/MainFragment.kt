@@ -12,11 +12,14 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.jeepchief.devoca.R
 import com.jeepchief.devoca.databinding.FragmentMainBinding
 import com.jeepchief.devoca.databinding.LayoutDialogVocaInputBinding
 import com.jeepchief.devoca.model.database.VocaEntity
 import com.jeepchief.devoca.viewmodel.MainViewModel
+import kotlin.random.Random
 
 class MainFragment : BaseFragment() {
     private var _binding: FragmentMainBinding? = null
@@ -56,15 +59,22 @@ class MainFragment : BaseFragment() {
                         val button = it as Button
                         when(button.text.toString()) {
                             getString(R.string.button_name_close) -> {
+//                                val database = Firebase.database("https://devoca-48989-default-rtdb.asia-southeast1.firebasedatabase.app/")
+//                                val myRef = database.getReference("test")
+//                                myRef.setValue(Random(100).nextInt().toString())
                                 dlg.dismiss()
                             }
                             getString(R.string.button_name_input_finish) -> {
+
+
                                 val vocaEntity = VocaEntity(
                                     vocaName = edtVocaName.text.toString(),
                                     vocaDesc = edtVocaDesc.text.toString(),
                                     vocaFrom = edtVocaFrom.text.toString()
                                 )
                                 viewModel.saveVoca(mContext, vocaEntity)
+
+
                                 dlg.dismiss()
                             }
                         }

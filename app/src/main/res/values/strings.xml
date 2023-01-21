@@ -12,4 +12,5 @@
     <string name="edittext_voca_from">출처가 있다면 적어주세요</string>
 
     <string name="msg_check_empty">단어나 설명을 작성해주세요.</string>
+    <string name="msg_empty_voca_list">저장된 단어가 없습니다!</string>
 </resources>
