@@ -48,12 +48,11 @@ class VocaFragment : BaseFragment() {
     private fun observeViewModel() {
         viewModel.run {
             voca.observe(mActivity) { entity ->
-                Log.e("entity is $entity")
                 try {
                     binding.apply {
                         tvVocaName.text = entity.vocaName
                         tvVocaDesc.text = entity.vocaDesc
-                        entity.vocaFrom?.let { tvVocaFrom.text = it } ?: run { tvVocaFrom.isVisible = false }
+                        entity.vocaFrom?.let { tvVocaFrom.text = it } ?: run { tvVocaFrom.visibility = View.INVISIBLE }
                     }
                 } catch(e: NullPointerException) {
                     Toast.makeText(mContext, getString(R.string.msg_empty_voca_list), Toast.LENGTH_SHORT).show()
@@ -64,7 +63,7 @@ class VocaFragment : BaseFragment() {
     }
 
     /**
-     * Make randon vid for test.
+     * Make random vid for test.
      * @return vid: Int
      */
     private fun makeRandomVid(count: Int) : Int = Random.nextInt(count).also { Log.e("Set vid count is $count") }

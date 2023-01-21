@@ -1,30 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    xmlns:tools="http://schemas.android.com/tools">-->
-<!--    -->
-<!--</androidx.core.widget.NestedScrollView>-->
 
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="10dp"
-    android:id="@+id/rl_voca_layout">
+    android:id="@+id/rl_voca_layout"
+    android:orientation="vertical">
     <TextView
         android:id="@+id/tv_voca_name"
         style="@style/BasicTextViewStyle"
-        tools:text = "Voca Name" />
+        tools:text = "Voca Name"
+        android:textSize="25dp"
+        android:textStyle="bold"/>
     <TextView
         android:id="@+id/tv_voca_desc"
         style="@style/BasicTextViewStyle"
         tools:text="Voca Description"
-        android:layout_centerInParent="true"/>
+        android:layout_weight="1"
+        android:gravity="center"
+        android:scrollbars="vertical"
+        android:background="@drawable/voca_desc_border"/>
     <TextView
         android:id="@+id/tv_voca_from"
         style="@style/BasicTextViewStyle"
         tools:text="Voca from something"
-        android:layout_alignParentBottom="true" />
-</RelativeLayout>
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:visibility="invisible"/>
+</LinearLayout>
