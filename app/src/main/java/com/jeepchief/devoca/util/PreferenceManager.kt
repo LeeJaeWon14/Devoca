@@ -12,6 +12,7 @@ class PreferenceManager(private val context : Context) {
 
     companion object {
         const val PREF_DATA = "Preference"
+        const val USE_NETWORK = "NETWORK"
 
         private var instance : PreferenceManager? =null
         @Synchronized
@@ -27,9 +28,19 @@ class PreferenceManager(private val context : Context) {
         return preference.getString(id, "")
     }
 
+    fun getBoolean(id: String?) : Boolean {
+        return preference.getBoolean(id, false)
+    }
+
     fun setValue(id: String?, value: String) : Boolean {
         return preference.edit()
             .putString(id, value)
+            .commit()
+    }
+
+    fun setValue(id: String?, value: Boolean) : Boolean {
+        return preference.edit()
+            .putBoolean(id, value)
             .commit()
     }
 

@@ -6,10 +6,15 @@
     <string name="button_name_input_voca">단어추가</string>
     <string name="button_name_input_finish">완료</string>
     <string name="button_name_close">닫기</string>
+    <string name="button_name_remove_voca_all">저장한 단어 비우기</string>
+    
+    <string name="text_label_set_db">연결설정</string>
+    <string name="radio_label_network">네트워크</string>
+    <string name="radio_label_local">로컬</string>
 
     <string name="edittext_voca_name">단어 이름</string>
     <string name="edittext_voca_desc">단어 설명</string>
-    <string name="edittext_voca_from">출처가 있다면 적어주세요</string>
+    <string name="edittext_voca_from">출처(URL)가 있다면 적어주세요</string>
 
     <string name="msg_check_empty">단어나 설명을 작성해주세요.</string>
     <string name="msg_empty_voca_list">저장된 단어가 없습니다!</string>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+    <ImageView
+        android:id="@+id/iv_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:background="?selectableItemBackground" />
+    <TextView
+        android:id="@+id/tv_setting_label"
+        style="@style/BasicTextViewStyle"
+        android:layout_alignParentTop="true"
+        android:text="@string/button_name_setting"
+        android:textSize="25dp"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/voca_desc_border"
+        android:layout_below="@+id/tv_setting_label"
+        android:orientation="vertical"
+        android:padding="10dp" >
+        <TextView
+            style="@style/BasicTextViewStyle"
+            android:text="@string/text_label_set_db"
+            android:textAlignment="viewStart"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp" />
+        <RadioGroup
+            android:id="@+id/rg_network_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/rb_network"
+                style="@style/BasicRadioButtonStyle"
+                android:text="@string/radio_label_network"
+                android:layout_weight="1" />
+            <RadioButton
+                android:id="@+id/rb_local"
+                style="@style/BasicRadioButtonStyle"
+                android:text="@string/radio_label_local"
+                android:layout_weight="1" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btn_remove_voca_all"
+            style="@style/MainActivityButtonStyle"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="30dp"
+            android:text="@string/button_name_remove_voca_all"
+            android:textColor="@color/remove_all_color" />
+    </LinearLayout>
+</RelativeLayout>

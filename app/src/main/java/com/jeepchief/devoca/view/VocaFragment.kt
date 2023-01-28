@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.jeepchief.devoca.R
 import com.jeepchief.devoca.databinding.FragmentVocaBinding
 import com.jeepchief.devoca.model.database.DevocaDatabase
 import com.jeepchief.devoca.util.Log
+import com.jeepchief.devoca.viewmodel.MainViewModel
 import com.jeepchief.devoca.viewmodel.VocaViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +23,7 @@ class VocaFragment : BaseFragment() {
     private var _binding: FragmentVocaBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<VocaViewModel>()
+    private val mainViewModel by activityViewModels<MainViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,12 +45,16 @@ class VocaFragment : BaseFragment() {
                 viewModel.getVoca(mContext, makeRandomVid(5))
             }
             rlVocaLayout.performClick()
+
+            ivBackButton.setOnClickListener {
+                requireActivity().onBackPressed()
+            }
         }
     }
 
     private fun observeViewModel() {
         viewModel.run {
-            voca.observe(mActivity) { entity ->
+            voca.observe(requireActivity()) { entity ->
                 try {
                     binding.apply {
                         tvVocaName.text = entity.vocaName
@@ -56,7 +63,7 @@ class VocaFragment : BaseFragment() {
                     }
                 } catch(e: NullPointerException) {
                     Toast.makeText(mContext, getString(R.string.msg_empty_voca_list), Toast.LENGTH_SHORT).show()
-                    mActivity.onBackPressed()
+                    requireActivity().onBackPressed()
                 }
             }
         }
@@ -66,7 +73,7 @@ class VocaFragment : BaseFragment() {
      * Make random vid for test.
      * @return vid: Int
      */
-    private fun makeRandomVid(count: Int) : Int = Random.nextInt(count).also { Log.e("Set vid count is $count") }
+    private fun makeRandomVid(count: Int = 5) : Int = Random.nextInt(count).also { Log.e("Set vid count is $count") }
 
     override fun onDestroy() {
         super.onDestroy()

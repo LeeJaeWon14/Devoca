@@ -1,32 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="10dp"
-    android:id="@+id/rl_voca_layout"
-    android:orientation="vertical">
+    android:id="@+id/rl_voca_layout" >
+    <ImageView
+        android:id="@+id/iv_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:background="?selectableItemBackground"
+        android:layout_alignStart="@+id/tv_voca_name"
+        android:scaleType="centerCrop"/>
     <TextView
         android:id="@+id/tv_voca_name"
         style="@style/BasicTextViewStyle"
         tools:text = "Voca Name"
         android:textSize="25dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"/>
     <TextView
         android:id="@+id/tv_voca_desc"
         style="@style/BasicTextViewStyle"
+        android:layout_height="match_parent"
         tools:text="Voca Description"
-        android:layout_weight="1"
         android:gravity="center"
+        android:layout_below="@id/tv_voca_name"
+        android:layout_above="@id/tv_voca_from"
         android:scrollbars="vertical"
         android:background="@drawable/voca_desc_border"/>
     <TextView
         android:id="@+id/tv_voca_from"
         style="@style/BasicTextViewStyle"
         tools:text="Voca from something"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
-        android:visibility="invisible"/>
-</LinearLayout>
+        android:visibility="invisible"
+        tools:visibility="visible"/>
+</RelativeLayout>
