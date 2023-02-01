@@ -21,4 +21,10 @@
         android:id="@+id/btn_setting"
         android:text="@string/button_name_setting"
         android:layout_marginTop="50dp"/>
+
+    <Button
+        style="@style/MainActivityButtonStyle"
+        android:id="@+id/btn_api_test"
+        android:text="API 테스트"
+        android:layout_marginTop="50dp" />
 </LinearLayout>

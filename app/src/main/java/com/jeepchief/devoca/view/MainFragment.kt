@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -16,6 +17,7 @@ import com.jeepchief.devoca.databinding.FragmentMainBinding
 import com.jeepchief.devoca.databinding.LayoutDialogVocaInputBinding
 import com.jeepchief.devoca.model.database.VocaEntity
 import com.jeepchief.devoca.ui.DialogHelper
+import com.jeepchief.devoca.util.Log
 import com.jeepchief.devoca.viewmodel.MainViewModel
 
 class MainFragment : BaseFragment() {
@@ -35,6 +37,20 @@ class MainFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // api test observe
+        viewModel.apiTest.observe(requireActivity()) {
+            if(it.isSuccessful) {
+                Toast.makeText(mContext, it.body(), Toast.LENGTH_SHORT).show()
+            }
+            else {
+                it.errorBody()?.let { body ->
+                    Log.e(body.string())
+                } ?: run {
+                    Log.e("errorBody is null!, ${it.message()}")
+                }
+            }
+        }
 
         navController = Navigation.findNavController(view)
         binding.apply {
@@ -57,15 +73,12 @@ class MainFragment : BaseFragment() {
                                     dlg.dismiss()
                                 }
                                 getString(R.string.button_name_input_finish) -> {
-
-
                                     val vocaEntity = VocaEntity(
                                         vocaName = edtVocaName.text.toString(),
                                         vocaDesc = edtVocaDesc.text.toString(),
                                         vocaFrom = edtVocaFrom.text.toString()
                                     )
                                     viewModel.saveVoca(mContext, vocaEntity)
-
 
                                     dlg.dismiss()
                                 }
@@ -78,6 +91,10 @@ class MainFragment : BaseFragment() {
                 }
                 dlg.show()
             }
+
+            btnApiTest.setOnClickListener {
+                viewModel.getApiTest()
+            }
         }
     }
 
@@ -87,20 +104,6 @@ class MainFragment : BaseFragment() {
                 btnInputVocaComplete.text = getString(R.string.button_name_input_finish)
             else
                 btnInputVocaComplete.text = getString(R.string.button_name_close)
-        }
-    }
-
-    private val buttonCheckChangedListener = object : TextWatcher {
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            /* no-op */
-        }
-
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            /* no-op */
-        }
-
-        override fun afterTextChanged(it: Editable?) {
-
         }
     }
 }
